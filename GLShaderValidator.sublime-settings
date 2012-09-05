@@ -1,0 +1,22 @@
+/*
+  GL Shader Validator settings
+ */
+{
+  /*
+   Sets whether the plugin runs:
+
+     0 = Validation disabled
+     1 = Validation enabled [load, save, activation]
+
+  */
+  "glsv_enabled": 1,
+
+  /*
+   Sets the specification that should be used:
+
+     0 = WebGL
+     1 = GLSL ES
+
+   */
+  "glsv_spec": 0
+}
