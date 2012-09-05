@@ -1,4 +1,4 @@
-# GLShaderValidator
+# GL Shader Validator
 
 This is a [Sublime Text 2](http://www.sublimetext.com/) plugin that passes GLSL / ESSL to ANGLE's
 preprocessor / compiler for validation.
