@@ -1,5 +1,7 @@
 # GL Shader Validator
 
+![image](http://aerotwist.com/glshadervalidator/screenshot.png)
+
 This is a [Sublime Text 2](http://www.sublimetext.com/) plugin that passes GLSL / ESSL to ANGLE's
 preprocessor / compiler for validation.
 Any errors that ANGLE finds are routed back to Sublime and the tokens in
