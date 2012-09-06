@@ -24,7 +24,7 @@ class ANGLECommandLine:
     ANGLEPath = {
         "osx": "./essl_to_glsl_osx",
         "linux": "./essl_to_glsl_linux",
-        "windows": "./essl_to_glsl_win.exe"
+        "windows": "./essl_to_glsl_win.exe -b=h"
     }
 
     def ensure_script_permissions(self):
