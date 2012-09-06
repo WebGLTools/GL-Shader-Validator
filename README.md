@@ -17,7 +17,7 @@ Right now you need to clone this repo into your packages folder
 (typically ~/Library/Application Support/Sublime Text 2/Packages).
 
 ```
-cd ~/Library/Application Support/Sublime Text 2/Packages
+cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 git clone git://github.com/WebGLTools/GL-Shader-Validator.git
 ```
 

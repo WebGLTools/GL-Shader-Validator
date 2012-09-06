@@ -22,16 +22,16 @@ class ANGLECommandLine:
     errorPattern = re.compile("ERROR: 0:(\d+): '([^\']*)' : (.*)")
     permissionChecked = False
     ANGLEPath = {
-        "osx": "./essl_to_glsl",
-        "linux": "./essl_to_glsl",
-        "windows": "./essl_to_glsl.exe"
+        "osx": "./essl_to_glsl_osx",
+        "linux": "./essl_to_glsl_linux",
+        "windows": "./essl_to_glsl_win.exe"
     }
 
     def ensure_script_permissions(self):
         """ Ensures that we have permission to execute the command """
 
         if not self.permissionChecked:
-            os.chmod(sublime.packages_path() + "/GLShaderValidator/essl_to_glsl", 0755)
+            os.chmod(sublime.packages_path() + "/GL-Shader-Validator/" + self.ANGLEPath[self.platform], 0755)
 
         self.permissionChecked = True
         return self.permissionChecked
@@ -54,7 +54,7 @@ class ANGLECommandLine:
         # up its output directly
         ANGLEProcess = subprocess.Popen(
             ANGLEPath + ' ' + specCmd + ' ' + view.file_name(),
-            cwd=sublime.packages_path() + "/GLShaderValidator/",
+            cwd=sublime.packages_path() + "/GL-Shader-Validator/",
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             shell=True)
