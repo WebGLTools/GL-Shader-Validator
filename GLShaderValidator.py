@@ -24,7 +24,7 @@ class ANGLECommandLine:
     ANGLEPath = {
         "osx": "./essl_to_glsl_osx",
         "linux": "./essl_to_glsl_linux",
-        "windows": "./essl_to_glsl_win.exe -b=h"
+        "windows": "./essl_to_glsl_win.exe"
     }
 
     def ensure_script_permissions(self):
@@ -49,6 +49,10 @@ class ANGLECommandLine:
         # want to use. If they have, drop the switch
         if view.settings().get('glsv_spec') == 1:
             specCmd = ''
+
+        # We need an extra flag for windows
+        if self.platform == "windows":
+            specCmd = specCmd + " -b=h"
 
         # Create a shell process for essl_to_glsl and pick
         # up its output directly
