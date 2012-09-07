@@ -9,8 +9,6 @@ the shader are highlighted for your convenience and debugging joy.
 To see the details of the error check the status message in the bottom left of the
 Sublime view.
 
-_Please note: we are testing on Windows and Linux, this is only known to work on Mac_
-
 ## Installation
 
 Right now you need to clone this repo into your packages folder
@@ -21,7 +19,7 @@ cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 git clone git://github.com/WebGLTools/GL-Shader-Validator.git
 ```
 
-Once we get out of alpha we will make this available via Package Control.
+_Please note: we have submitted this to Package Control and are waiting to be added._
 
 ## Usage
 
