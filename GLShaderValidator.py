@@ -57,7 +57,7 @@ class ANGLECommandLine:
         # Create a shell process for essl_to_glsl and pick
         # up its output directly
         ANGLEProcess = subprocess.Popen(
-            ANGLEPath + ' ' + specCmd + ' ' + view.file_name(),
+            ANGLEPath + ' ' + specCmd + ' "' + view.file_name() + '"',
             cwd=sublime.packages_path() + os.sep + "GL-Shader-Validator" + os.sep,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
