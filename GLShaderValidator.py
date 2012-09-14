@@ -128,40 +128,37 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
         # ensure that the script has permissions to run
         self.ANGLECLI.ensure_script_permissions()
 
-    def settings_changed(self):
-        """ Resets the view's settings """
-
-        # for all views and windows reset the configured value
+    def clear_settings(self):
+        """ Resets the settings value so we will overwrite on the next run """
         for window in sublime.windows():
             for view in window.views():
                 if view.settings().get('glsv_configured') != None:
                     view.settings().set('glsv_configured', None)
 
     def apply_settings(self, view):
-        """ Configures the view to have the user's settings """
+        """ Applies the settings from the settings file """
 
-        # lazy load the settings
+        # load in the settings file
         if self.pluginSettings == None:
-            self.pluginSettings = sublime.load_settings(__name__ + '.sublime-settings')
-            self.pluginSettings.clear_on_change(__name__)
-            self.pluginSettings.add_on_change(__name__, self.settings_changed)
+            self.pluginSettings = sublime.load_settings(__name__ + ".sublime-settings")
+            self.pluginSettings.clear_on_change('glsv_validator')
+            self.pluginSettings.add_on_change('glsv_validator', self.clear_settings)
 
-        # if we've not configured this view before we do that now
         if view.settings().get('glsv_configured') == None:
 
-            # but we don't do it repeatedly
             view.settings().set('glsv_configured', True)
 
+            # Go through the default settings
             for setting in self.DEFAULT_SETTINGS:
 
-                # get the default value
+                # set the value
                 settingValue = self.DEFAULT_SETTINGS[setting]
 
-                # see if the user has overridden it
+                # check if the user has overwritten the value
+                # and switch to that instead
                 if self.pluginSettings.get(setting) != None:
                     settingValue = self.pluginSettings.get(setting)
 
-                # now add it to the view
                 view.settings().set(setting, settingValue)
 
     def clear_errors(self, view):

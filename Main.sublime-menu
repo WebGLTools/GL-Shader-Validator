@@ -14,14 +14,14 @@
               {
                 "command": "open_file",
                 "args": {
-                  "file": "${packages}/GLShaderValidator/README.md"
+                  "file": "${packages}/GL-Shader-Validator/README.md"
                 },
                 "caption": "README"
               },
               {
                 "command": "open_file",
                 "args": {
-                  "file": "${packages}/GLShaderValidator/LICENSE"
+                  "file": "${packages}/GL-Shader-Validator/LICENSE"
                 },
                 "caption": "LICENSE"
               },
@@ -31,7 +31,7 @@
               {
                 "command": "open_file",
                 "args": {
-                  "file": "${packages}/GLShaderValidator/GLShaderValidator.sublime-settings"
+                  "file": "${packages}/GL-Shader-Validator/GLShaderValidator.sublime-settings"
                 },
                 "caption": "Settings - Default"
               }
