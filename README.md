@@ -18,14 +18,14 @@ If you would like to install it manually, clone this repo into your packages fol
 
 ```
 cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
-git clone git://github.com/WebGLTools/GL-Shader-Validator.git
+git clone git://github.com/WebGLTools/GL-Shader-Validator.git "GL Shader Validator"
 ```
 
 If you're on Windows 7 the path looks more like this, assuming you have Git installed:
 
 ```
 cd c:\users\YOUR_ACCOUNT\AppData\Roaming\Sublime Text 2\Packages
-git clone git://github.com/WebGLTools/GL-Shader-Validator.git
+git clone git://github.com/WebGLTools/GL-Shader-Validator.git "GL Shader Validator"
 ```
 
 ## Usage

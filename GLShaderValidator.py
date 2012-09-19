@@ -18,6 +18,7 @@ class GLShaderError:
 class ANGLECommandLine:
     """ Wrapper for ANGLE CLI """
 
+    packagePath = "GL Shader Validator"
     platform = sublime.platform()
     errorPattern = re.compile("ERROR: 0:(\d+): '([^\']*)' : (.*)")
     permissionChecked = False
@@ -31,7 +32,7 @@ class ANGLECommandLine:
         """ Ensures that we have permission to execute the command """
 
         if not self.permissionChecked:
-            os.chmod(sublime.packages_path() + os.sep + "GL-Shader-Validator" + os.sep + self.ANGLEPath[self.platform], 0755)
+            os.chmod(sublime.packages_path() + os.sep + self.packagePath + os.sep + self.ANGLEPath[self.platform], 0755)
 
         self.permissionChecked = True
         return self.permissionChecked
@@ -58,7 +59,7 @@ class ANGLECommandLine:
         # up its output directly
         ANGLEProcess = subprocess.Popen(
             ANGLEPath + ' ' + specCmd + ' "' + view.file_name() + '"',
-            cwd=sublime.packages_path() + os.sep + "GL-Shader-Validator" + os.sep,
+            cwd=sublime.packages_path() + os.sep + self.packagePath + os.sep,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             shell=True)
