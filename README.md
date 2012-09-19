@@ -49,7 +49,7 @@ should that fail you will receive the following error message:
 In such instances you should enable execute permissions yourself:
 
 ```
-cd ~/Library/Application Support/Sublime Text 2/Packages/GL-Shader-Validator
+cd ~/Library/Application Support/Sublime Text 2/Packages/GL\ Shader\ Validator
 chmod +x essl_to_glsl
 ```
 
