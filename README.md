@@ -44,8 +44,8 @@ Preferences > Package Settings > GL Shader Validator > Settings - Default
 ```
 
 This can be overridden in a specific shader by adding comments:
-`/* spec: webgl */` for WebGL
-`/* spec: es2 */` for OpenGL ES 2.0
+`/* spec: webgl */` for WebGL,
+`/* spec: es2 */` for OpenGL ES 2.0 or
 `/* spec: css */ ` for CSS Shaders
 
 ## Permissions
