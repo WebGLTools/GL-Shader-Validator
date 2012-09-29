@@ -38,6 +38,16 @@ suffix `.vert` and fragment shaders `.frag`. If you do not name your files
 with that suffix ANGLE (and therefore the plugin) will not be able
 to validate your shaders. Sadness will ensue.
 
+You can set the default specification to use in the settings:
+```
+Preferences > Package Settings > GL Shader Validator > Settings - Default
+```
+
+This can be overridden in a specific shader by adding comments:
+`/* spec: webgl */` for WebGL
+`/* spec: es2 */` for OpenGL ES 2.0
+`/* spec: css */ ` for CSS Shaders
+
 ## Permissions
 
 This plugin requires use of a command line utility called essl_to_glsl, which is bundled with the plugin. By default,
