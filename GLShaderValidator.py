@@ -44,12 +44,17 @@ class ANGLECommandLine:
         fileLines = view.lines(
             sublime.Region(0, view.size())
         )
+
+        # Assume WebGL spec
         specCmd = '-s=w'
 
         # Check if the user has changed which spec they
         # want to use. If they have, drop the switch
         if view.settings().get('glsv_spec') == 1:
             specCmd = ''
+
+        if view.settings().get('glsv_spec') == 2:
+            specCmd = '-s=c'
 
         # We need an extra flag for windows
         if self.platform == "windows":

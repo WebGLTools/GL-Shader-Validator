@@ -16,6 +16,7 @@
 
      0 = WebGL
      1 = GLSL ES
+     2 = CSS Shaders
 
    */
   "glsv_spec": 0
