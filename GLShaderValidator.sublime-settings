@@ -12,7 +12,7 @@
   "glsv_enabled": 1,
 
   /*
-   Sets the specification that should be used:
+   Sets the default specification that should be used:
 
      0 = WebGL
      1 = GLSL ES

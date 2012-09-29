@@ -45,15 +45,18 @@ class ANGLECommandLine:
             sublime.Region(0, view.size())
         )
 
-        # Assume WebGL spec
-        specCmd = '-s=w'
+        specCmd = ''
+
+        # Go with WebGL spec
+        if view.settings().get('glsv_spec') == 0 or view.find("spec: webgl", sublime.IGNORECASE) != None:
+            specCmd = '-s=w'
 
         # Check if the user has changed which spec they
         # want to use. If they have, drop the switch
-        if view.settings().get('glsv_spec') == 1:
+        if view.settings().get('glsv_spec') == 1 or view.find("spec: es2", sublime.IGNORECASE) != None:
             specCmd = ''
 
-        if view.settings().get('glsv_spec') == 2:
+        if view.settings().get('glsv_spec') == 2 or view.find("spec: css", sublime.IGNORECASE) != None:
             specCmd = '-s=c'
 
         # We need an extra flag for windows
