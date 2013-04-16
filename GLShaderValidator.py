@@ -18,7 +18,7 @@ class GLShaderError:
 class ANGLECommandLine:
     """ Wrapper for ANGLE CLI """
 
-    packagePath = "GL Shader Validator"
+    packagePath = "GL-Shader-Validator"
     platform = sublime.platform()
     errorPattern = re.compile("ERROR: 0:(\d+): '([^\']*)' : (.*)")
     permissionChecked = False
@@ -32,7 +32,7 @@ class ANGLECommandLine:
         """ Ensures that we have permission to execute the command """
 
         if not self.permissionChecked:
-            os.chmod(sublime.packages_path() + os.sep + self.packagePath + os.sep + self.ANGLEPath[self.platform], 0755)
+            os.chmod(sublime.packages_path() + os.sep + self.packagePath + os.sep + self.ANGLEPath[self.platform], 0o755)
 
         self.permissionChecked = True
         return self.permissionChecked
@@ -48,15 +48,15 @@ class ANGLECommandLine:
         specCmd = ''
 
         # Go with WebGL spec
-        if view.settings().get('glsv_spec') == 0 or view.find("spec: webgl", sublime.IGNORECASE) != None:
+        if view.settings().get('glsv_spec') == 0 or view.find("spec: webgl", sublime.IGNORECASE) is not None:
             specCmd = '-s=w'
 
         # Check if the user has changed which spec they
         # want to use. If they have, drop the switch
-        if view.settings().get('glsv_spec') == 1 or view.find("spec: es2", sublime.IGNORECASE) != None:
+        if view.settings().get('glsv_spec') == 1 or view.find("spec: es2", sublime.IGNORECASE) is not None:
             specCmd = ''
 
-        if view.settings().get('glsv_spec') == 2 or view.find("spec: css", sublime.IGNORECASE) != None:
+        if view.settings().get('glsv_spec') == 2 or view.find("spec: css", sublime.IGNORECASE) is not None:
             specCmd = '-s=c'
 
         # We need an extra flag for windows
@@ -78,9 +78,12 @@ class ANGLECommandLine:
             # Go through each error, ignoring any comments
             for e in errlines:
 
+                e = e.decode("utf-8")
+
                 # Check if there was a permission denied
                 # error running the essl_to_glsl cmd
-                if re.search("permission denied", e, flags=re.IGNORECASE):
+
+                if re.search("permission denied", str(e), flags=re.IGNORECASE):
                     sublime.error_message("GLShaderValidator: permission denied to use essl_to_glsl command")
                     return []
 
@@ -107,7 +110,7 @@ class ANGLECommandLine:
 
                             # Ensure we have a match before we
                             # replace the error region
-                            if betterLocation != None:
+                            if betterLocation is not None:
                                 errorLocation = betterLocation
 
                         errors.append(GLShaderError(
@@ -141,19 +144,19 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
         """ Resets the settings value so we will overwrite on the next run """
         for window in sublime.windows():
             for view in window.views():
-                if view.settings().get('glsv_configured') != None:
+                if view.settings().get('glsv_configured') is not None:
                     view.settings().set('glsv_configured', None)
 
     def apply_settings(self, view):
         """ Applies the settings from the settings file """
 
         # load in the settings file
-        if self.pluginSettings == None:
+        if self.pluginSettings is None:
             self.pluginSettings = sublime.load_settings(__name__ + ".sublime-settings")
             self.pluginSettings.clear_on_change('glsv_validator')
             self.pluginSettings.add_on_change('glsv_validator', self.clear_settings)
 
-        if view.settings().get('glsv_configured') == None:
+        if view.settings().get('glsv_configured') is None:
 
             view.settings().set('glsv_configured', True)
 
@@ -165,7 +168,7 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
 
                 # check if the user has overwritten the value
                 # and switch to that instead
-                if self.pluginSettings.get(setting) != None:
+                if self.pluginSettings.get(setting) is not None:
                     settingValue = self.pluginSettings.get(setting)
 
                 view.settings().set(setting, settingValue)
@@ -178,13 +181,13 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
         """ Checks that the file is GLSL or ESSL """
         syntax = view.settings().get('syntax')
         isShader = False
-        if syntax != None:
-            isShader = re.search('GLSL|ESSL', syntax, flags=re.IGNORECASE) != None
+        if syntax is not None:
+            isShader = re.search('GLSL|ESSL', syntax, flags=re.IGNORECASE) is not None
         return isShader
 
     def is_valid_file_ending(self, view):
         """ Checks that the file ending will work for ANGLE """
-        isValidFileEnding = re.search('(frag|vert)$', view.file_name()) != None
+        isValidFileEnding = re.search('(frag|vert)$', view.file_name()) is not None
         return isValidFileEnding
 
     def show_errors(self, view):
@@ -211,12 +214,11 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
 
         # If we have errors just locate
         # the first one and go with that for the status
-        if self.is_glsl_or_essl(view) and self.errors != None:
+        if self.is_glsl_or_essl(view) and self.errors is not None:
             for sel in view.sel():
                 for error in self.errors:
                     if error.region.contains(sel):
-                        view.set_status('glshadervalidator',
-                            error.message)
+                        view.set_status('glshadervalidator', error.message)
                         return
 
     def on_load(self, view):
@@ -261,5 +263,4 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
             self.errors = self.ANGLECLI.validate_contents(view)
             self.show_errors(view)
         else:
-            view.set_status('glshadervalidator',
-                "File name must end in .frag or .vert")
+            view.set_status('glshadervalidator', "File name must end in .frag or .vert")
