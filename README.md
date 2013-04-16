@@ -2,7 +2,7 @@
 
 ![image](http://aerotwist.com/glshadervalidator/screenshot.png)
 
-This is a [Sublime Text 2](http://www.sublimetext.com/) plugin that passes GLSL / ESSL to ANGLE's
+This is a [Sublime Text 2 / 3](http://www.sublimetext.com/) plugin that passes GLSL / ESSL to ANGLE's
 preprocessor / compiler for validation.
 Any errors that ANGLE finds are routed back to Sublime and the tokens in
 the shader are highlighted for your convenience and debugging joy.
@@ -28,6 +28,8 @@ cd c:\users\YOUR_ACCOUNT\AppData\Roaming\Sublime Text 2\Packages
 git clone git://github.com/WebGLTools/GL-Shader-Validator.git "GL Shader Validator"
 ```
 
+Also if you're using Sublime Text 3 then you just switch the `2` in the path above to `3` and you should be all set.
+
 ## Usage
 
 Assuming that you have a [GLSL / ESSL syntax highlighter](https://github.com/euler0/sublime-glsl) installed in Sublime, all you should need to do
@@ -46,7 +48,7 @@ Preferences > Package Settings > GL Shader Validator > Settings - Default
 This can be overridden in a specific shader by adding comments:
 `/* spec: webgl */` for WebGL,
 `/* spec: es2 */` for OpenGL ES 2.0 or
-`/* spec: css */ ` for CSS Shaders
+`/* spec: css */ ` for Custom Filters / CSS Shaders
 
 ## Permissions
 
@@ -72,5 +74,5 @@ know via the repo's Issues.
 
 ## Credits
 
-* [Paul Lewis](http://aerotwist.com) - Pinky
-* [Brendan Kenny](http://extremelysatisfactorytotalitarianism.com/) - The Brain
+* [Paul Lewis](http://aerotwist.com)
+* [Brendan Kenny](http://extremelysatisfactorytotalitarianism.com/)
