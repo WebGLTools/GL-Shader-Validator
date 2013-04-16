@@ -18,7 +18,7 @@ class GLShaderError:
 class ANGLECommandLine:
     """ Wrapper for ANGLE CLI """
 
-    packagePath = "GL-Shader-Validator"
+    packagePath = "GL Shader Validator"
     platform = sublime.platform()
     errorPattern = re.compile("ERROR: 0:(\d+): '([^\']*)' : (.*)")
     permissionChecked = False
