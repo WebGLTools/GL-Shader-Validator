@@ -47,16 +47,22 @@ class ANGLECommandLine:
 
         specCmd = ''
 
+        # NOTE: view.find is documented to return None if not found in ST2 and
+        # ST3, but actually returns (-1, -1) in ST3
+
         # Go with WebGL spec
-        if view.settings().get('glsv_spec') == 0 or view.find("spec: webgl", sublime.IGNORECASE) is not None:
+        inline_spec = view.find("spec: webgl", sublime.IGNORECASE)
+        if view.settings().get('glsv_spec') == 0 or (inline_spec is not None and not inline_spec.empty()):
             specCmd = '-s=w'
 
         # Check if the user has changed which spec they
         # want to use. If they have, drop the switch
-        if view.settings().get('glsv_spec') == 1 or view.find("spec: es2", sublime.IGNORECASE) is not None:
+        inline_spec = view.find("spec: es2", sublime.IGNORECASE)
+        if view.settings().get('glsv_spec') == 1 or (inline_spec is not None and not inline_spec.empty()):
             specCmd = ''
 
-        if view.settings().get('glsv_spec') == 2 or view.find("spec: css", sublime.IGNORECASE) is not None:
+        inline_spec = view.find("spec: css", sublime.IGNORECASE)
+        if view.settings().get('glsv_spec') == 2 or (inline_spec is not None and not inline_spec.empty()):
             specCmd = '-s=c'
 
         # We need an extra flag for windows
@@ -110,7 +116,7 @@ class ANGLECommandLine:
 
                             # Ensure we have a match before we
                             # replace the error region
-                            if betterLocation is not None:
+                            if betterLocation is not None and not betterLocation.empty():
                                 errorLocation = betterLocation
 
                         errors.append(GLShaderError(
@@ -137,8 +143,6 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
 
     def __init__(self):
         """ Startup """
-        # ensure that the script has permissions to run
-        self.ANGLECLI.ensure_script_permissions()
 
     def clear_settings(self):
         """ Resets the settings value so we will overwrite on the next run """
@@ -258,6 +262,10 @@ class GLShaderValidatorCommand(sublime_plugin.EventListener):
 
             # Clear the last set of errors
             self.clear_errors
+
+            # ensure that the script has permissions to run
+            # this only runs once and is short circuited on subsequent calls
+            self.ANGLECLI.ensure_script_permissions()
 
             # Get the file and send to ANGLE
             self.errors = self.ANGLECLI.validate_contents(view)
